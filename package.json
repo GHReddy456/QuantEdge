@@ -1,0 +1,23 @@
+{
+  "name": "quantedge-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "QuantEdge - Multi-Market Stock Analysis, Quantitative Research & Paper Trading Platform",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n \"API,WEB\" -c \"blue,green\" \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:api": "npm run dev --workspace=apps/api",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "test:algorithms": "npm run test --workspace=packages/algorithms",
+    "test:api": "npm run test --workspace=apps/api"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6",
+    "typescript": "^5.4.5"
+  }
+}
