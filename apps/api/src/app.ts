@@ -15,7 +15,7 @@ export function createApp() {
   app.use(express.json());
 
   // Health check
-  app.get('/health', (_req, res) => {
+  app.get(['/health', '/api/health'], (_req, res) => {
     res.json({
       status: 'UP',
       service: 'QuantEdge Financial Analytics & Paper Trading API',
@@ -24,7 +24,7 @@ export function createApp() {
   });
 
   // Root & API index
-  app.get(['/', '/api'], (_req, res) => {
+  app.get(['/', '/api', '/api/index', '/api/index.js'], (_req, res) => {
     res.json({
       name: 'QuantEdge Financial Analytics & Paper Trading API',
       status: 'UP',
