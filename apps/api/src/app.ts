@@ -68,3 +68,7 @@ export function createApp() {
 
   return app;
 }
+
+// Vercel Express framework preset requires a default export that is the Express app instance.
+// This satisfies "/var/task/apps/api/src/app.js" default export validation.
+export default createApp();
