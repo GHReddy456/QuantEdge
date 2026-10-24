@@ -4,22 +4,18 @@ dotenv.config();
 import { createApp } from './app.js';
 import { connectDatabase } from './db/connection.js';
 
-let initialized = false;
+// Non-blocking connection on module boot
+connectDatabase().catch((err) => console.warn('Async DB connection:', err));
+
 export const app = createApp();
 
-export default async function handler(req: any, res: any) {
-  if (!initialized) {
-    connectDatabase().catch((err) => console.warn('Async DB connection:', err));
-    initialized = true;
-  }
-
-  // Preserve original client request path across Vercel URL rewrites
+// Restore original client request path across Vercel URL rewrites
+app.use((req, _res, next) => {
   const originalPath = req.headers['x-forwarded-uri'] || req.headers['x-matched-path'];
-  if (originalPath) {
+  if (originalPath && typeof originalPath === 'string') {
     req.url = originalPath;
-  } else if (req.url === '/api/index.js' || req.url === '/api/index') {
-    req.url = '/';
   }
+  next();
+});
 
-  return app(req, res);
-}
+export default app;

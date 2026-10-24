@@ -2018,22 +2018,17 @@ function createApp() {
 
 // src/serverless.ts
 dotenv.config();
-var initialized = false;
+connectDatabase().catch((err) => console.warn("Async DB connection:", err));
 var app = createApp();
-async function handler(req, res) {
-  if (!initialized) {
-    connectDatabase().catch((err) => console.warn("Async DB connection:", err));
-    initialized = true;
-  }
+app.use((req, _res, next) => {
   const originalPath = req.headers["x-forwarded-uri"] || req.headers["x-matched-path"];
-  if (originalPath) {
+  if (originalPath && typeof originalPath === "string") {
     req.url = originalPath;
-  } else if (req.url === "/api/index.js" || req.url === "/api/index") {
-    req.url = "/";
   }
-  return app(req, res);
-}
+  next();
+});
+var serverless_default = app;
 export {
   app,
-  handler as default
+  serverless_default as default
 };
