@@ -20,8 +20,8 @@ export async function connectDatabase(): Promise<DatabaseState> {
     try {
       console.log('Connecting to MongoDB Atlas...');
       await mongoose.connect(uri, {
-        serverSelectionTimeoutMS: 5000,
-        connectTimeoutMS: 5000
+        serverSelectionTimeoutMS: 2000,
+        connectTimeoutMS: 2000
       });
 
       dbState = {

@@ -1894,8 +1894,8 @@ async function connectDatabase() {
     try {
       console.log("Connecting to MongoDB Atlas...");
       await mongoose.connect(uri, {
-        serverSelectionTimeoutMS: 5e3,
-        connectTimeoutMS: 5e3
+        serverSelectionTimeoutMS: 2e3,
+        connectTimeoutMS: 2e3
       });
       dbState = {
         isConnected: true,
@@ -2022,7 +2022,7 @@ var initialized = false;
 var app = createApp();
 async function handler(req, res) {
   if (!initialized) {
-    await connectDatabase().catch(console.error);
+    connectDatabase().catch((err) => console.warn("Async DB connection:", err));
     initialized = true;
   }
   const originalPath = req.headers["x-forwarded-uri"] || req.headers["x-matched-path"];

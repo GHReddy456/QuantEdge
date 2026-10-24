@@ -9,7 +9,7 @@ export const app = createApp();
 
 export default async function handler(req: any, res: any) {
   if (!initialized) {
-    await connectDatabase().catch(console.error);
+    connectDatabase().catch((err) => console.warn('Async DB connection:', err));
     initialized = true;
   }
 
