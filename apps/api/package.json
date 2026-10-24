@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "prebuild": "npm run build --workspace=@quantedge/algorithms",
-    "build": "tsc",
+    "build": "tsc && esbuild src/serverless.ts --bundle --platform=node --target=node20 --format=esm --outfile=api/index.js --packages=external",
     "start": "node dist/index.js",
     "test": "vitest run"
   },
@@ -23,6 +23,7 @@
     "@types/express": "^4.17.21",
     "@types/node": "^20.14.2",
     "@types/ws": "^8.5.10",
+    "esbuild": "^0.21.5",
     "supertest": "^7.0.0",
     "@types/supertest": "^6.0.2",
     "tsx": "^4.15.2",
