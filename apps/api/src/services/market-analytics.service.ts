@@ -21,7 +21,7 @@ export class MarketAnalyticsService {
     const closePrices = candles.map((c) => c.close);
     const result = findLeaders(closePrices);
 
-    const leadersWithTimestamps = result.leaders.map((leader) => ({
+    const leadersWithTimestamps = result.leaders.map((leader: { value: number; index: number }) => ({
       ...leader,
       timestamp: candles[leader.index]?.timestamp || 'Unknown'
     }));

@@ -11,7 +11,9 @@
     "dev": "concurrently -n \"API,WEB\" -c \"blue,green\" \"npm run dev:api\" \"npm run dev:web\"",
     "dev:api": "npm run dev --workspace=apps/api",
     "dev:web": "npm run dev --workspace=apps/web",
-    "build": "npm run build --workspaces --if-present",
+    "build:algorithms": "npm run build --workspace=@quantedge/algorithms",
+    "postinstall": "npm run build:algorithms",
+    "build": "npm run build:algorithms && npm run build --workspace=apps/api && npm run build --workspace=apps/web",
     "test": "npm run test --workspaces --if-present",
     "test:algorithms": "npm run test --workspace=packages/algorithms",
     "test:api": "npm run test --workspace=apps/api"

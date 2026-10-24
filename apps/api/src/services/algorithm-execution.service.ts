@@ -5,7 +5,7 @@ import {
   ALGORITHM_REGISTRY,
   getAlgorithmById,
   getAlgorithmBySlug,
-  AlgorithmMetadata
+  type AlgorithmMetadata
 } from '@quantedge/algorithms';
 import { store } from '../models/store.js';
 

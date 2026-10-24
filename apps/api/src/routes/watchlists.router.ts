@@ -13,7 +13,7 @@ watchlistsRouter.get('/', async (_req: Request, res: Response) => {
         // Naturally sort symbols using ACC-13
         const sortedSymbols = naturalSort(wl.symbols).sorted;
         const quotes = await Promise.all(
-          sortedSymbols.map(async (sym) => {
+          sortedSymbols.map(async (sym: string) => {
             try {
               return await marketDataService.getQuote(sym);
             } catch {
